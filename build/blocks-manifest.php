@@ -14,7 +14,7 @@ return array(
 			
 		),
 		'supports' => array(
-			'interactivity' => true
+			'html' => false
 		),
 		'textdomain' => 'parcel-machine-plugin',
 		'editorScript' => 'file:./index.js',
