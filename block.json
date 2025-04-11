@@ -1,0 +1,12 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "create-block/bakalaura-parcel-machine-plugin",
+	"version": "0.1.0",
+	"title": "Bakalaura Parcel Machine Plugin",
+	"category": "widgets",
+	"textdomain": "bakalaura-parcel-machine-plugin",
+	"editorScript": "file:./build/index.js",
+	"editorStyle": "file:./build/index.css",
+	"style": "file:./build/style-index.css"
+}
