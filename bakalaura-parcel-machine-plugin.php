@@ -68,69 +68,35 @@ function BakalauraParcelMachinePlugin_register_custom_checkout_fields() {
 		return;
 	}
 
-	woocommerce_register_additional_checkout_field(
+    woocommerce_register_additional_checkout_field(
 		array(
-			'id'       => 'bakalaura-parcel-machine-plugin/custom-checkbox',
-			'label'    => 'Check this box to see a custom field on the order.',
-			'location' => 'contact',
-			'type'     => 'checkbox',
-		)
-	);
-
-	woocommerce_register_additional_checkout_field(
-		array(
-			'id'       => 'bakalaura-parcel-machine-plugin/custom-text-input',
-			'label'    => "BakalauraParcelMachinePlugin's example text input",
-			'location' => 'address',
-			'type'     => 'text',
-		)
-	);
-
-	/**
-	 * Sanitizes the value of the custom text input field. For demo purposes we will just turn it to all caps.
-	 */
-	add_action(
-		'woocommerce_sanitize_additional_field',
-		function ( $value, $key, $group ) {
-			if ( 'bakalaura-parcel-machine-plugin/custom-text-input' === $key ) {
-				return strtoupper( $value );
-			}
-			return $value;
-		},
-		10,
-		3
-	);
-
-	/**
-	 * Validates the custom text input field. For demo purposes we will not accept the string 'INVALID'.
-	 */
-	add_action(
-		'woocommerce_blocks_validate_location_address_fields',
-		function ( \WP_Error $errors, $fields, $group ) {
-			if ( 'INVALID' === $fields['bakalaura-parcel-machine-plugin/custom-text-input'] ) {
-				$errors->add( 'invalid_text_detected', 'Please ensure your custom text input is not "INVALID".' );
-			}
-		},
-		10,
-		3
-	);
-
-	woocommerce_register_additional_checkout_field(
-		array(
-			'id'       => 'bakalaura-parcel-machine-plugin/custom-select-input',
-			'label'    => "BakalauraParcelMachinePlugin's example select input",
+			'id'       => 'bakalaura-parcel-machine-plugin/parcel-machine-selector',
+			'label'    => 'Choose Parcel Machine',
 			'location' => 'order',
 			'type'     => 'select',
 			'options'  => [
 				[
-					'label' => 'Option 1',
-					'value' => 'option1',
+					'label' => 'Parcel Machine 1 - Main Street 123',
+					'value' => 'machine_1',
 				],
 				[
-					'label' => 'Option 2',
-					'value' => 'option2',
+					'label' => 'Parcel Machine 2 - Elm Street 456',
+					'value' => 'machine_2',
+				],
+                [
+					'label' => 'Parcel Machine 3 - Oak Avenue 789',
+					'value' => 'machine_3',
 				],
 			],
 		)
 	);
 }
+
+
+add_action('woocommerce_set_additional_field_value', function($key, $value, $group, $wc_object) {
+    if ($key === 'bakalaura-parcel-machine-plugin/parcel-machine-selector') {
+        $order_id = $wc_object->get_id();
+        error_log('Order ID: ' . $order_id . ' - Selected Parcel Machine: ' . $value);
+        // Datus iespējams tālāk izmantot, piemēram, saglabāt datubāzē vai nosūtīt uz lietojumprogrammu saskarni (API).
+    }
+}, 10, 4);

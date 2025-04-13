@@ -1,11 +1,11 @@
 /**
  * External dependencies
  */
-import { __experimentalRegisterCheckoutFilters } from '@woocommerce/blocks-checkout';
+import { registerCheckoutFilters } from '@woocommerce/blocks-checkout';
 import { registerPaymentMethodExtensionCallbacks } from '@woocommerce/blocks-registry';
 
 export const registerFilters = () => {
-	__experimentalRegisterCheckoutFilters( 'bakalaura-parcel-machine-plugin', {
+	registerCheckoutFilters( 'bakalaura-parcel-machine-plugin', {
 		itemName: ( name ) => {
 			return `${ name } + extra data!`;
 		},
